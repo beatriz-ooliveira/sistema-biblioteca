@@ -142,10 +142,11 @@
 					</div>
 				</div>
 
-				<p id="txtSynopsis"></p>
+				<p id="txtsinopse"></p>
 
 
 				<!-- modal -->
+				
 				<div id="myModal" class="modal">
 					<div id="contentModel" class="modal-content">
 						<span id="btnCloseModal">&times;</span>
@@ -155,18 +156,20 @@
 								<i class="material-symbols-outlined">menu_book</i>
 								Novo <span class="text-primary">Registro</span>
 							</h1>
-							<label for="bookName">Título</label>
-							<input type="text" name="bookName" id="bookName">
-							<label for="bookAuthor">Autor</label>
-							<input type="text" name="bookAuthor" id="bookAuthor">
-							<label for="bookPublisher">Editora</label>
-							<input type="text" name="bookPublisher" id="bookPublisher">
-							<label for="numberOfPages">Insira a quantidade de páginas:</label>
-							<input type="number" name="numberOfPages" id="numberOfPages">
-							<label for="bookCover">Link da capa</label>
-							<input type="text" name="bookCover" id="bookCover">
-							<label for="synopsis">Sinopse</label>
-							<textarea name="synopsis" id="synopsis" cols="50" rows="10"></textarea>
+							<label for="titulo">Título</label>
+							<input type="text" name="titulo" id="titulo">
+							<label for="autor">Autor</label>
+							<input type="text" name="autor" id="autor">
+							<label for="categoria">Categoria</label>
+							<input type="text" name="categoria" id="categoria">
+							<label for="subcategoria">SubCategoria</label>
+							<input type="text" name="subcategoria" id="subcategoria">
+							<label for="ISBN">ISBN</label>
+							<input type="number" name="ISBN" id="ISBN">
+							<label for="URLimage">URL da capa</label>
+							<input type="text" name="URLimage" id="URLimage">
+							<label for="sinopse">Sinopse</label>
+							<textarea name="sinopse" id="sinopse" cols="50" rows="10"></textarea>
 							<button id="btnRegister" onclick="updateList()">Cadastre</button>
 		
 						</form>

@@ -3,32 +3,33 @@ let allBooks = [];
 const fields = document.querySelectorAll("input");
 const modal = document.querySelector("#myModal");
 const modalTitle = document.querySelector("#modalTitle");
-const txtSynopsis = document.querySelector("#txtSynopsis");
+const txtsinopse = document.querySelector("#txtsinopse");
 const btnRegister = document.querySelector("#btnRegister");
 const botao_novo = document.querySelector("#botao-novo");
 const tblContent = document.querySelector('.tbl_content tbody');
 const btnCloseModal = document.querySelector("#btnCloseModal");
 
-function showSynopsis(bookName) {
-  modalTitle.innerHTML = `Sinopse do livro "${bookName}"`;
-  txtSynopsis.innerHTML = allBooks.find(book => book.bookName === bookName)?.synopsis || '';
+function showsinopse(titulo) {
+  modalTitle.innerHTML = `Sinopse do livro "${titulo}"`;
+  txtsinopse.innerHTML = allBooks.find(book => book.titulo === titulo)?.sinopse || '';
   modal.style.display = "block";
 }
 
-function openEditModal(bookName) {
-  const book = allBooks.find(book => book.bookName === bookName);
+function openEditModal(titulo) {
+  const book = allBooks.find(book => book.titulo === titulo);
   if (book) {
     // Preencher os campos do modal com as informações do livro para edição
     // Substitua os campos abaixo pelos campos reais do seu modal de edição
-    document.querySelector("#bookName").value = book.bookName;
-    document.querySelector("#bookAuthor").value = book.bookAuthor;
-    document.querySelector("#bookPublisher").value = book.bookPublisher;
-    document.querySelector("#numberOfPages").value = book.numberOfPages;
-    document.querySelector("#bookCover").value = book.bookCover;
-    document.querySelector("#synopsis").value = book.synopsis;
+    document.querySelector("#titulo").value = book.titulo;
+    document.querySelector("#autor").value = book.autor;
+    document.querySelector("#categoria").value = book.categoria;
+    document.querySelector("#subcategoria").value = book.categoria;
+    document.querySelector("#ISBN").value = book.ISBN;
+    document.querySelector("#URLimage").value = book.URLimage;
+    document.querySelector("#sinopse").value = book.sinopse;
 
     // Exibir o modal de edição
-    modalTitle.innerHTML = `Editar livro "${book.bookName}"`;
+    modalTitle.innerHTML = `Editar livro "${book.titulo}"`;
     modal.style.display = "block";
     btnCloseModal.addEventListener("click", closeModal);
     window.addEventListener("click", closeModalWindow);
@@ -56,13 +57,43 @@ function closeModalWindow(event) {
   }
 }
 
-function removeBook(bookName) {
-  const index = allBooks.findIndex(book => book.bookName === bookName);
-  if (index !== -1) {
-    allBooks.splice(index, 1);
-    saveToLocalStorage();
-    updateList();
-  }
+function removeBook(titulo) {
+  // const index = allBooks.findIndex(book => book.titulo === titulo);
+  // if (index !== -1) {
+  //   allBooks.splice(index, 1);
+  //   saveToLocalStorage();
+  //   updateList();
+
+
+    // Use SweetAlert para obter uma confirmação
+    Swal.fire({
+      title: "Deseja deletar este livro?",
+      text: "Todos os exemplares associados a ele serão deletados!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sim, quero deletar!"
+  }).then((result) => {
+      // Se o usuário confirmar, execute a lógica de exclusão
+      if (result.isConfirmed) {
+          const index = allBooks.findIndex(book => book.titulo === titulo);
+          if (index !== -1) {
+              allBooks.splice(index, 1);
+              saveToLocalStorage();
+              updateList();
+              Swal.fire({
+                  title: "Deletado!",
+                  text: "O livro foi removido do acervo.",
+                  icon: "success"
+              });
+          }
+      } else {
+          // Se o usuário clicar em "Cancelar" ou fechar a caixa de diálogo, não faça nada
+          console.log('A exclusão foi cancelada.');
+      }
+  });
+  
 }
 
 function clearFields() {
@@ -72,14 +103,15 @@ function clearFields() {
 function adionaLivroTabela(book) {
   const card = document.createElement("tr");
   card.innerHTML = `
-    <td>${book.bookName}</td>
-    <td>${book.bookAuthor}</td>
-    <td>${book.bookPublisher}</td>
-    <td>${book.numberOfPages}</td>
-    <td>${book.bookCover}</td>
+    <td>${book.titulo}</td>
+    <td>${book.autor}</td>
+    <td>${book.categoria}</td>
+    <td>${book.subcategoria}</td>
+    <td>${book.ISBN}</td>
+    <td>${book.URLimage}</td>
     <td style="text-align:end;">
-      <button class="botao-editar" style="background: rgb(121, 113, 113);" data-bookname="${book.bookName}"><i id="icone-tabela"class="material-symbols-outlined">edit_document</i></button>
-      <button class="botao-remover" style="background: rgb(168, 7, 7);" data-bookname="${book.bookName}"><i id="icone-tabela" class="material-symbols-outlined">delete</i></button>
+      <button class="botao-editar" style="background: rgb(121, 113, 113);" data-titulo="${book.titulo}"><i id="icone-tabela"class="material-symbols-outlined">edit_document</i></button>
+      <button class="botao-remover" style="background: rgb(168, 7, 7);" data-titulo="${book.titulo}"><i id="icone-tabela" class="material-symbols-outlined">delete</i></button>
       </td>
   `;
   return card;
@@ -103,25 +135,27 @@ function readFromLocalStorage() {
 }
 
 function registerBook() {
-  const bookName = document.querySelector("#bookName").value;
-  const existingBook = allBooks.find(book => book.bookName === bookName);
+  const titulo = document.querySelector("#titulo").value;
+  const existingBook = allBooks.find(book => book.titulo === titulo);
 
   if (existingBook) {
     // Update existing book
-    existingBook.bookAuthor = document.querySelector("#bookAuthor").value;
-    existingBook.bookPublisher = document.querySelector("#bookPublisher").value;
-    existingBook.numberOfPages = Number(document.querySelector("#numberOfPages").value);
-    existingBook.bookCover = document.querySelector("#bookCover").value;
-    existingBook.synopsis = document.querySelector("#synopsis").value;
+    existingBook.autor = document.querySelector("#autor").value;
+    existingBook.categoria = document.querySelector("#categoria").value;
+    existingBook.subcategoria = document.querySelector("#subcategoria").value;
+    existingBook.ISBN = Number(document.querySelector("#ISBN").value);
+    existingBook.URLimage = document.querySelector("#URLimage").value;
+    existingBook.sinopse = document.querySelector("#sinopse").value;
   } else {
     // Add new book
     const newBook = {
-      bookName,
-      bookAuthor: document.querySelector("#bookAuthor").value,
-      bookPublisher: document.querySelector("#bookPublisher").value,
-      numberOfPages: Number(document.querySelector("#numberOfPages").value),
-      bookCover: document.querySelector("#bookCover").value,
-      synopsis: document.querySelector("#synopsis").value
+      titulo,
+      autor: document.querySelector("#autor").value,
+      categoria: document.querySelector("#categoria").value,
+      subcategoria: document.querySelector("#subcategoria").value,
+      ISBN: Number(document.querySelector("#ISBN").value),
+      URLimage: document.querySelector("#URLimage").value,
+      sinopse: document.querySelector("#sinopse").value
     };
 
     allBooks.push(newBook);
@@ -145,26 +179,26 @@ function loadBookList() {
 }
 
 function handleButtonClick(event) {
-  const bookName = event.target.dataset.bookname;
+  const titulo = event.target.dataset.titulo;
   if (event.target.classList.contains("btnSinopsys")) {
-    showSynopsis(bookName);
+    showsinopse(titulo);
   } else if (event.target.classList.contains("botao-editar")) {
-    openEditModal(bookName);
+    openEditModal(titulo);
   } else if (event.target.classList.contains("botao-remover")) {
-    removeBook(bookName);
+    removeBook(titulo);
   }
 }
 
-function createCard(bookCard, bookName, bookAuthor, bookPublisher, numberOfPages, bookCover) {
+function createCard(bookCard, titulo, autor, categoria, subcategoria, ISBN, URLimage) {
   const card = document.createElement('div');
-  card.className = bookName
+  card.className = titulo
   card.innerHTML = `
-    <p id="bookTitle">${bookName}</p>
-    <img src="${bookCover}"/>
-    Autor: ${bookAuthor}
-    <br>Editora: ${bookPublisher}
-    <br>Págs: ${numberOfPages}
-    <button class="btnSinopsys" bookname="${bookName}">Sinopse</button>
+    <p id="bookTitle">${titulo}</p>
+    <img src="${URLimage}"/>
+    Autor: ${autor}
+    <br>Editora: ${categoria}
+    <br>Págs: ${ISBN}
+    <button class="btnSinopsys" titulo="${titulo}">Sinopse</button>
     `
     return card;
 }
@@ -176,7 +210,7 @@ function displayBooksFromLocalStorageCard() {
 
   // Itere sobre a lista de livros e crie um card para cada livro
   bookList.forEach(function(book) {
-    const bookCard = createCard(book.bookName, book.bookAuthor, book.bookPublisher, book.numberOfPages, book.bookCover);
+    const bookCard = createCard(book.titulo, book.autor, book.categoria, book.subcategoria, book.ISBN, book.URLimage);
     container.appendChild(bookCard);
   });
 
@@ -192,6 +226,8 @@ function OnOff(){
   $("#listOfAllBooks").toggle();
 
 }
+
+
 
 $( document ).ready(function() {
   displayBooksFromLocalStorageCard();

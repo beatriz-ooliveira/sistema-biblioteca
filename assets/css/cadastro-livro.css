@@ -1,6 +1,8 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
 
-
+body {
+  font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif; 
+}
 /* Cabelhaço Lista e Botão Novo */
 
 div.cabecalho {
@@ -188,6 +190,10 @@ header.lista-livro h2 {
     position: relative;
     top: -6px;
     font-size: 15px
+}
+
+.swal2-default-outline, .swal2-styled {
+  line-height: 1.75em !important;
 }
   
   
