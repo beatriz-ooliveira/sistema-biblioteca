@@ -27,6 +27,8 @@ function openEditModal(titulo) {
     document.querySelector("#ISBN").value = book.ISBN;
     document.querySelector("#URLimage").value = book.URLimage;
     document.querySelector("#sinopse").value = book.sinopse;
+    document.querySelector("#status").value = book.status;
+
 
     // Exibir o modal de edição
     modalTitle.innerHTML = `Editar livro "${book.titulo}"`;
@@ -146,6 +148,8 @@ function registerBook() {
     existingBook.ISBN = Number(document.querySelector("#ISBN").value);
     existingBook.URLimage = document.querySelector("#URLimage").value;
     existingBook.sinopse = document.querySelector("#sinopse").value;
+    existingBook.status = document.querySelector("#status").value;
+ 
   } else {
     // Add new book
     const newBook = {
@@ -155,7 +159,9 @@ function registerBook() {
       subcategoria: document.querySelector("#subcategoria").value,
       ISBN: Number(document.querySelector("#ISBN").value),
       URLimage: document.querySelector("#URLimage").value,
-      sinopse: document.querySelector("#sinopse").value
+      sinopse: document.querySelector("#sinopse").value,
+      status: document.querySelector("#status").value
+
     };
 
     allBooks.push(newBook);

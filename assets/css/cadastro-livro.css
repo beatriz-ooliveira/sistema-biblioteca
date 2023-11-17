@@ -256,11 +256,15 @@ header.lista-livro h2 {
 
 /* começo css pro cadastro que peguei no git */
 
+#btnRegister {
+  color: #152063;
+}
 
 h3 {
   text-align: center;
   margin-bottom: 10px;
   font-size: 25px;
+  color: #040404;
 }
 
 h3#titleAllBooks {
@@ -280,6 +284,7 @@ form#register input+label {
 
 label {
   font-size: 16px;
+  color: #040404;
 }
 
 input {

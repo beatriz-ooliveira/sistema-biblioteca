@@ -125,8 +125,8 @@
 								<tr>
 									<th>Título</th>
 									<th>Autor</th>
-									<th>Editora</th>
-									<th>Ano de publicação</th>
+									<th>Categoria</th>
+									<th>Quantidade</th>
 									<th>Status</th>
 								</tr>
 							</thead>
@@ -154,20 +154,32 @@
 						<form id="register">
 							<h1 class="display-4 text-center">
 								<i class="material-symbols-outlined">menu_book</i>
-								Novo <span class="text-primary">Registro</span>
+								Novo <span class="text-primarys">Registro</span>
 							</h1>
 							<label for="titulo">Título</label>
 							<input type="text" name="titulo" id="titulo">
+							
 							<label for="autor">Autor</label>
 							<input type="text" name="autor" id="autor">
+							
 							<label for="categoria">Categoria</label>
 							<input type="text" name="categoria" id="categoria">
+							
 							<label for="subcategoria">SubCategoria</label>
 							<input type="text" name="subcategoria" id="subcategoria">
+							
 							<label for="ISBN">ISBN</label>
 							<input type="number" name="ISBN" id="ISBN">
+							
 							<label for="URLimage">URL da capa</label>
 							<input type="text" name="URLimage" id="URLimage">
+							
+							<p>Status</p>
+							<input type="radio" name="ativo" id="ativo">
+							<label for="ativo">Ativo</label>
+							<input type="radio" name="inativo" id="inativo">
+							<label for="inativo">Inativo</label>
+
 							<label for="sinopse">Sinopse</label>
 							<textarea name="sinopse" id="sinopse" cols="50" rows="10"></textarea>
 							<button id="btnRegister" onclick="updateList()">Cadastre</button>
