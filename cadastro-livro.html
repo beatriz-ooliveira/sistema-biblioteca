@@ -100,105 +100,115 @@
 					<header class="lista-livro">
 						<h2>Lista de Livros</h2>
 					</header>
-					<button id="botao-novo" class="botao-add"><i id="icone" class="material-symbols-outlined">add</i>Novo</button>
+					<button id="botao-novo" class="botao-add"><i id="icone"
+							class="material-symbols-outlined">add</i>Novo</button>
 				</div>
 
 				<div id="linha-horizontal"></div>
 
-
-	
-				<div id="listOfBooksSearch">
-
-					<div id="foundBooks"></div>
-				</div>
-				<!-- Exibir livros -->
-				<!-- <div id="AllBooks">
-					<h3 id="titleAllBooks">Todos os Livros</h3>
-					<div id="listOfAllBooks">
-						<p id="emptyBookList">Nenhum livro cadastrado</p>
-					</div> -->
-
-					<!--DISPLAY SAVED BOOKS -->
-					<div class="tbl-header">
-						<table cellpadding="0" cellspacing="0" border="0">
-							<thead>
-								<tr>
-									<th>Título</th>
-									<th>Autor</th>
-									<th>Categoria</th>
-									<th>Quantidade</th>
-									<th>Status</th>
-								</tr>
-							</thead>
-						</table>
-					</div>
-
-					<div class="tbl_content">
-						<table cellpadding="0" cellspacing="0" border="0">
-							<tbody>
-								<!-- A tabela será preenchida dinamicamente -->	
-							</tbody>
-						</table>
-					</div>
+				<!--DISPLAY SAVED BOOKS -->
+				<div class="tbl-header">
+					<table cellpadding="0" cellspacing="0" border="0">
+						<thead>
+							<tr>
+								<th>Título</th>
+								<th>Autor</th>
+								<th>Categoria</th>
+								<th>Quantidade</th>
+								<th>Status</th>
+							</tr>
+						</thead>
+					</table>
 				</div>
 
-				<p id="txtsinopse"></p>
+				<div class="tbl_content">
+					<table cellpadding="0" cellspacing="0" border="0">
+						<tbody>
+							<!-- A tabela será preenchida dinamicamente -->
+						</tbody>
+					</table>
+				</div>
+		</div>
+
+		<p id="txtsinopse"></p>
 
 
-				<!-- modal -->
-				
-				<div id="myModal" class="modal">
-					<div id="contentModel" class="modal-content">
-						<span id="btnCloseModal">&times;</span>
-						<h3 id="modalTitle"></h3>
-						<form id="register">
-							<h1 class="display-4 text-center">
-								<i class="material-symbols-outlined">menu_book</i>
-								Novo <span class="text-primarys">Registro</span>
-							</h1>
-							<label for="titulo">Título</label>
-							<input type="text" name="titulo" id="titulo">
-							
-							<label for="autor">Autor</label>
-							<input type="text" name="autor" id="autor">
-							
-							<label for="categoria">Categoria</label>
-							<input type="text" name="categoria" id="categoria">
-							
-							<label for="subcategoria">SubCategoria</label>
-							<input type="text" name="subcategoria" id="subcategoria">
-							
-							<label for="ISBN">ISBN</label>
-							<input type="number" name="ISBN" id="ISBN">
-							
-							<label for="URLimage">URL da capa</label>
-							<input type="text" name="URLimage" id="URLimage">
-							
-							<p>Status</p>
-							<input type="radio" name="ativo" id="ativo">
-							<label for="ativo">Ativo</label>
-							<input type="radio" name="inativo" id="inativo">
-							<label for="inativo">Inativo</label>
+		<!-- modal -->
 
-							<label for="sinopse">Sinopse</label>
-							<textarea name="sinopse" id="sinopse" cols="50" rows="10"></textarea>
-							<button id="btnRegister" onclick="updateList()">Cadastre</button>
-		
-						</form>
+		<div id="myModal" class="modal">
+			<div id="contentModel" class="modal-content">
+				<span id="btnCloseModal">&times;</span>
+				<h3 id="modalTitle"><i id="icone-livro" class="material-symbols-outlined">menu_book</i>
+					<span style="color: rgb(34, 46, 129);">Cadastro </span><span class="text-primarys">Novo Livro</span>
+				</h3>
+				<form id="register">
 
-						
-						
-						<div id="successModal" class="modal">
-							<div id="contentModel">
-							  <p id="modalTitle">Livro Salvo com Sucesso!</p>
-							</div>
+					<label id="label-livro" for="status" type="text">Status</label>
+
+					<div id="status-div">
+						<div>
+							<input type="radio" id="ativo" name="status" value="1" />
+							<label id="label-status" for="ativo">Ativo</label>
+						</div>
+						<div>
+							<input type="radio" id="inativo" name="status" value="0" />
+							<label id="label-status" for="inativo">Inativo</label>
 						</div>
 					</div>
-				</div>
-				
 
-			</section>
+					<label id="label-livro" for="titulo">Título</label>
+					<input class="input-formulario-livro" type="text" name="titulo" id="titulo">
+
+					<label id="label-livro" for="autor">Autor</label>
+					<input class="input-formulario-livro" type="text" name="autor" id="autor">
+
+					<label id="label-livro" for="categoria">Categoria</label>
+					<select class="select-formulario-livro" name="categoria" id="categoria">
+						<option value="valor1">Filosofia e Psicologia</option>
+						<option value="valor2">Valor 2</option>
+						<option value="valor3">Valor 3</option>
+					</select>
+
+					<label id="label-livro" for="subcategoria">Sub-categoria</label>
+					<select class="select-formulario-livro" name="subcategoria" id="subcategoria">
+						<option value="valor1">Valor 1</option>
+						<option value="valor2">Valor 2</option>
+						<option value="valor3">Valor 3</option>
+					</select>
+
+					<label id="label-livro" for="ISBN">ISBN</label>
+					<input class="input-formulario-livro" type="text" name="ISBN" id="ISBN">
+
+
+
+
+
+					<label id="label-livro" for="sinopse">Sinopse</label>
+					<textarea class="input-formulario-livro" name="sinopse" id="sinopse" cols="50" rows="5"></textarea>
+
+					<label id="label-livro" for="URLimage">URL da capa</label>
+					<input type="file" name="URLimage" id="URLimage">
+
+					<button type="submit" id="btnRegister" >Adicionar</button>
+
+
+
+
+
+				</form>
+
+				<div id="successModal" class="modal">
+					<div id="contentModel">
+						<p id="modalTitle">Livro Salvo com Sucesso!</p>
+					</div>
+				</div>
+
+			</div>
 		</div>
+
+
+		</section>
+	</div>
 	</div>
 
 	<!-- Footer -->
@@ -244,7 +254,7 @@
 	<script src="assets/js/menu.js"></script>
 	<script src="assets/js/cadastro-livro.js"></script>
 	<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-	
+
 
 </body>
 

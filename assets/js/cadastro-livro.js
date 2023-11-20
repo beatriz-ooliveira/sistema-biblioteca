@@ -2,7 +2,7 @@ let allBooks = [];
 
 const fields = document.querySelectorAll("input");
 const modal = document.querySelector("#myModal");
-const modalTitle = document.querySelector("#modalTitle");
+
 const txtsinopse = document.querySelector("#txtsinopse");
 const btnRegister = document.querySelector("#btnRegister");
 const botao_novo = document.querySelector("#botao-novo");
@@ -10,7 +10,7 @@ const tblContent = document.querySelector('.tbl_content tbody');
 const btnCloseModal = document.querySelector("#btnCloseModal");
 
 function showsinopse(titulo) {
-  modalTitle.innerHTML = `Sinopse do livro "${titulo}"`;
+  
   txtsinopse.innerHTML = allBooks.find(book => book.titulo === titulo)?.sinopse || '';
   modal.style.display = "block";
 }
@@ -20,6 +20,7 @@ function openEditModal(titulo) {
   if (book) {
     // Preencher os campos do modal com as informações do livro para edição
     // Substitua os campos abaixo pelos campos reais do seu modal de edição
+    document.querySelector('input[name="status"]:checked').value;
     document.querySelector("#titulo").value = book.titulo;
     document.querySelector("#autor").value = book.autor;
     document.querySelector("#categoria").value = book.categoria;
@@ -27,11 +28,10 @@ function openEditModal(titulo) {
     document.querySelector("#ISBN").value = book.ISBN;
     document.querySelector("#URLimage").value = book.URLimage;
     document.querySelector("#sinopse").value = book.sinopse;
-    document.querySelector("#status").value = book.status;
 
 
     // Exibir o modal de edição
-    modalTitle.innerHTML = `Editar livro "${book.titulo}"`;
+    
     modal.style.display = "block";
     btnCloseModal.addEventListener("click", closeModal);
     window.addEventListener("click", closeModalWindow);
@@ -43,10 +43,10 @@ function openAddModal() {
   clearFields();
 
   // Exibir o modal para adicionar um novo livro
-  modalTitle.innerHTML = "Adicionar Novo Livro";
   modal.style.display = "block";
   btnCloseModal.addEventListener("click", closeModal);
   window.addEventListener("click", closeModalWindow);
+  console.log(titulo)
 }
 
 function closeModal() {
@@ -95,6 +95,7 @@ function removeBook(titulo) {
           console.log('A exclusão foi cancelada.');
       }
   });
+  //updateList();
   
 }
 
@@ -103,14 +104,14 @@ function clearFields() {
 }
 
 function adionaLivroTabela(book) {
+  console.log("Adicionando livro à tabela:", book);
   const card = document.createElement("tr");
   card.innerHTML = `
     <td>${book.titulo}</td>
     <td>${book.autor}</td>
     <td>${book.categoria}</td>
-    <td>${book.subcategoria}</td>
-    <td>${book.ISBN}</td>
-    <td>${book.URLimage}</td>
+    <td>0</td>
+    <td>${book.status}</td>
     <td style="text-align:end;">
       <button class="botao-editar" style="background: rgb(121, 113, 113);" data-titulo="${book.titulo}"><i id="icone-tabela"class="material-symbols-outlined">edit_document</i></button>
       <button class="botao-remover" style="background: rgb(168, 7, 7);" data-titulo="${book.titulo}"><i id="icone-tabela" class="material-symbols-outlined">delete</i></button>
@@ -129,6 +130,7 @@ function updateList() {
 
 function saveToLocalStorage() {
   localStorage.setItem('bookList', JSON.stringify(allBooks));
+ 
 }
 
 function readFromLocalStorage() {
@@ -136,33 +138,56 @@ function readFromLocalStorage() {
   return storedBooks ? JSON.parse(storedBooks) : [];
 }
 
+function success() {
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 5000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.onmouseenter = Swal.stopTimer;
+      toast.onmouseleave = Swal.resumeTimer;
+    }
+  });
+  Toast.fire({
+    icon: "success",
+    title: "Signed in successfully"
+  });
+}
+
 function registerBook() {
+  closeModal()
+  success()
   const titulo = document.querySelector("#titulo").value;
+  console.log(titulo);
   const existingBook = allBooks.find(book => book.titulo === titulo);
 
   if (existingBook) {
     // Update existing book
+    existingBook.status = document.querySelector('input[name="status"]:checked').value;
     existingBook.autor = document.querySelector("#autor").value;
     existingBook.categoria = document.querySelector("#categoria").value;
     existingBook.subcategoria = document.querySelector("#subcategoria").value;
-    existingBook.ISBN = Number(document.querySelector("#ISBN").value);
+    existingBook.ISBN = document.querySelector("#ISBN").value;
     existingBook.URLimage = document.querySelector("#URLimage").value;
     existingBook.sinopse = document.querySelector("#sinopse").value;
-    existingBook.status = document.querySelector("#status").value;
+    
  
   } else {
     // Add new book
     const newBook = {
+      status: document.querySelector('input[name="status"]:checked').value,
       titulo,
       autor: document.querySelector("#autor").value,
       categoria: document.querySelector("#categoria").value,
       subcategoria: document.querySelector("#subcategoria").value,
-      ISBN: Number(document.querySelector("#ISBN").value),
+      ISBN: document.querySelector("#ISBN").value,
       URLimage: document.querySelector("#URLimage").value,
-      sinopse: document.querySelector("#sinopse").value,
-      status: document.querySelector("#status").value
-
+      sinopse: document.querySelector("#sinopse").value
     };
+
+    
 
     allBooks.push(newBook);
   }
@@ -171,12 +196,9 @@ function registerBook() {
   updateList();
   clearFields();
 
-  // Exibir modal "Livro salvo com sucesso" por 5 segundos
-  modalTitle.innerHTML = "Livro salvo com sucesso!";
-  modal.style.display = "block";
-  setTimeout(() => {
-    closeModal();
-  }, 5000);
+  
+
+ 
 }
 
 function loadBookList() {
@@ -241,9 +263,11 @@ $( document ).ready(function() {
 
 
 // Event Listeners
-btnRegister.addEventListener("click", registerBook);
 botao_novo.addEventListener("click", openAddModal);
+btnRegister.addEventListener("click", registerBook);
+btnRegister.addEventListener("click", function (event) { event.preventDefault();})
 tblContent.addEventListener("click", handleButtonClick);
+document.getElementById('ativo').checked = true;
 
 // Carregar lista de livros ao iniciar a página
 loadBookList();
