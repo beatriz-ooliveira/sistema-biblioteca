@@ -1,33 +1,23 @@
 <?php
-    include_once('config.php');
 
-    if(!empty($_GET['id']))
+    if(isset($_POST['submit']))
     {
-        $id = $_GET['id'];
-        $sqlSelect = "SELECT * FROM usuario WHERE idUsuario=$id";
-        $result = $conexao->query($sqlSelect);
-        if($result->num_rows > 0)
-        {
-            while($user_data = mysqli_fetch_assoc($result))
-            {
-                $idusuario = $user_data['idUsuario'];
-                $login = $user_data['login'];
-                $senha = $user_data['senha'];
-                $idFunc = $user_data['Funcionario_Pessoa_idPessoa'];
-                $idPessoa = $user_data['Leitor_Pessoa_idPessoa'];
-                $nivel_priv = $user_data['nivel_priv'];
-                $ativo = $user_data['ativo']; 
-            }
-        }
-        else
-        {
-            header('Location: sistema.php');
-        }
+        include_once('config.php');
+
+        $idreserva = $_POST['idReserva'];
+        $dataReserva = $_POST['data_reserva'];
+        $idPessoa = $_POST['Leitor_Pessoa_idPessoa'];
+        $idlivro = $_POST['Livro_idLivro'];
+        $data_limite = $_POST['data_limite'];
+
+        $result = mysqli_query($conexao, "INSERT INTO reserva(data_reserva, Leitor_Pessoa_idPessoa, Livro_idLivro, data_limite) 
+VALUES ('$dataReserva', '$idPessoa', '$idlivro', '$data_limite')");
+
+        
+
+        header('Location: index.php');
     }
-    else
-    {
-        header('Location: sistema.php');
-    }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,7 +25,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Usuarios</title>
+    <title>Cadastro de Reserva</title>
     <style>
         body{
             font-family: Arial, Helvetica, sans-serif;
@@ -88,6 +78,13 @@
             font-size: 12px;
             color: dodgerblue;
         }
+        #data_nascimento{
+            border: none;
+            padding: 8px;
+            border-radius: 10px;
+            outline: none;
+            font-size: 15px;
+        }
         #submit{
             background-image: linear-gradient(to right,rgb(0, 92, 197), rgb(90, 20, 220));
             width: 100%;
@@ -104,45 +101,34 @@
     </style>
 </head>
 <body>
-    <a href="sistema.php">Voltar</a>
+    <a href="index.php">Voltar</a>
     <div class="box">
-        <form action="saveEdit.php" method="POST">
+        <form action="formularioReserva.php" method="POST">
             <fieldset>
-                <legend><b>Editar Usuarios</b></legend>
+                <legend><b>Fórmulário para Reserva</b></legend>
                 <br>
                 <div class="inputBox">
-                    <input type="text" name="login" id="login" class="inputUser" value=<?php echo $login;?> required>
-                    <label for="login" class="labelInput">login*</label>
+                    <label for="data_reserva"><b>Data de Reserva:*</b></label>
+                    <input type="date" name="data_reserva" id="data_reserva" required>
                 </div>
                 <br><br>
                 <div class="inputBox">
-                    <input type="text" name="senha" id="senha" class="inputUser" value=<?php echo $senha;?> required>
-                    <label for="senha" class="labelInput">Senha*</label>
+                    <input type="text" name="Leitor_Pessoa_idPessoa" id="idPessoa" class="inputUser"  required>
+                    <label for="Leitor_Pessoa_idPessoa" class="labelInput">Id da Pessoa*</label>
                 </div>
                 <br><br>
                 <div class="inputBox">
-                    <input type="text" name="Funcionario_Pessoa_idPessoa" id="idfunc" class="inputUser" value=<?php echo $idFunc;?> required>
-                    <label for="idfunc" class="labelInput">Id do Funcionario*</label>
+                    <input type="text" name="Livro_idLivro" id="Livro_idLivro" class="inputUser"  required>
+                    <label for="Livro_idLivro" class="labelInput">Id do Livro*</label>
                 </div>
                 <br><br>
                 <div class="inputBox">
-                    <input type="text" name="idPessoa" id="idPessoa" class="inputUser" value=<?php echo $idPessoa;?> required>
-                    <label for="idPessoa" class="labelInput">Id da Pessoa*</label>
-                </div>
-                <br><br>
-                <div class="inputBox">
-                    <input type="text" name="nivel_priv" id="nivel_priv" class="inputUser" value=<?php echo $nivel_priv;?> required>
-                    <label for="nivel_priv" class="labelInput">Nivel de Privilegio*</label>
-                </div>
-                <br><br>
-                <div class="inputBox">
-                    <input type="text" name="ativo" id="ativo" class="inputUser" value=<?php echo $ativo;?> required>
-                    <label for="ativo" class="labelInput">Ativo ou não*</label>
+                    <label for="data_limite"><b>Data Limite:*</b></label>
+                    <input type="date" name="data_limite" id="data_limite" required>
                 </div>
             
                 <br><br>
-				<input type="hidden" name="idUsuario" value=<?php echo $idusuario;?>>
-                <input type="submit" name="update" id="submit">
+                <input type="submit" name="submit" id="submit">
             </fieldset>
         </form>
     </div>

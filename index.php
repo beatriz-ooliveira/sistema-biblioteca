@@ -91,7 +91,7 @@ if((!isset($_SESSION['login'])==true) && (!isset($_SESSION['senha'])==true))
 							class="material-symbols-outlined">keyboard_return</i>Devolução</a>
 			</div>
 			<div class="Navbar__Link">
-				<a href="#reservar-livro"><i id="botao-menu" class="material-symbols-outlined"><span
+				<a href="formularioReserva.php"><i id="botao-menu" class="material-symbols-outlined"><span
 								class="material-symbols-outlined">access_time</i>Reservar</a>
 			</div>
 			<div class="Navbar__Link">

@@ -111,32 +111,32 @@ VALUES ('$login', '$senha', '$idFunc', '$idPessoa', '$nivel_priv', '$ativo')");
                 <br>
                 <div class="inputBox">
                     <input type="text" name="login" id="login" class="inputUser" required>
-                    <label for="login" class="labelInput">login</label>
+                    <label for="login" class="labelInput">login*</label>
                 </div>
                 <br><br>
                 <div class="inputBox">
                     <input type="text" name="senha" id="senha" class="inputUser"  required>
-                    <label for="senha" class="labelInput">Senha</label>
+                    <label for="senha" class="labelInput">Senha*</label>
                 </div>
                 <br><br>
                 <div class="inputBox">
                     <input type="text" name="Funcionario_Pessoa_idPessoa" id="idfunc" class="inputUser"  required>
-                    <label for="idfunc" class="labelInput">Id do Funcionario</label>
+                    <label for="idfunc" class="labelInput">Id do Funcionario*</label>
                 </div>
                 <br><br>
                 <div class="inputBox">
                     <input type="text" name="Leitor_Pessoa_idPessoa" id="idPessoa" class="inputUser"  required>
-                    <label for="Leitor_Pessoa_idPessoa" class="labelInput">Id da Pessoa</label>
+                    <label for="Leitor_Pessoa_idPessoa" class="labelInput">Id da Pessoa*</label>
                 </div>
                 <br><br>
                 <div class="inputBox">
                     <input type="text" name="nivel_priv" id="nivel_priv" class="inputUser"  required>
-                    <label for="nivel_priv" class="labelInput">Nivel de Privilegio</label>
+                    <label for="nivel_priv" class="labelInput">Nivel de Privilegio* (0 ou 1)</label>
                 </div>
                 <br><br>
                 <div class="inputBox">
                     <input type="text" name="ativo" id="ativo" class="inputUser" required>
-                    <label for="ativo" class="labelInput">Ativo ou não</label>
+                    <label for="ativo" class="labelInput">Ativo ou não* (1 ou 0)</label>
                 </div>
             
                 <br><br>
