@@ -29,4 +29,6 @@ function handleResize() {
     }
 }
 
+// Adiciona um manipulador de evento resize para a janela
+window.addEventListener('resize', handleResize);
 
