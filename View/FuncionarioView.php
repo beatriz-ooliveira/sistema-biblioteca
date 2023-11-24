@@ -79,7 +79,7 @@
 							class="material-symbols-outlined">keyboard_return</i>Devolução</a>
 			</div>
 			<div class="Navbar__Link">
-				<a href="formularioReserva.php"><i id="botao-menu" class="material-symbols-outlined"><span
+				<a href="../Controller/reservaController.php"><i id="botao-menu" class="material-symbols-outlined"><span
 								class="material-symbols-outlined">access_time</i>Reservar</a>
 			</div>
 			<div class="Navbar__Link">

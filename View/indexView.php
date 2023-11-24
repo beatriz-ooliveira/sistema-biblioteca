@@ -52,7 +52,7 @@
 				<a href="#cadastros"><i id="botao-menu" class="material-symbols-outlined"><span
 							class="material-symbols-outlined">add_circle</i>Cadastro</a>
 				<div class="Navbar__Link__Sub">
-					<a href="cadastro-livro.html">
+					<a href="../cadastro-livro.html">
 						<i id="botao-menu" class="material-symbols-outlined"><span
 								class="material-symbols-outlined">menu_book</i>
 						Livro</a>
