@@ -1213,11 +1213,11 @@ body.is-preload #header.alt .logo {
     background-color: #fff;
     display: none;
     color: #636363;
-    width: 148.5%;
+    width: 150%;
     background-color: #f7f7f7;
     cursor: default;
     text-align: center;
-    margin-left: -20px;
+    margin-left: -23px;
     align-items: center;
     vertical-align: middle;
     flex-direction: column;
