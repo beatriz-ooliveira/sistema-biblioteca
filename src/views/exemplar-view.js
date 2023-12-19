@@ -1,3 +1,4 @@
+
 let allBooks = [];
 let allCategorias = [];
 let allAutores = [];
@@ -9,25 +10,25 @@ const btnRegister = document.querySelector("#btnRegister");
 const botao_novo = document.querySelector("#botao-novo");
 const tblContent = document.querySelector('.tbl_content tbody');
 const btnCloseModal = document.querySelector("#btnCloseModal");
-const categoria = document.querySelector('.select-formulario-livro#categoria');
-const inputBuscaLivro = document.querySelector("[data-pesquisa]");
+const categoria = document.querySelector('.select-formulario-exemplar#categoria');
+const inputBuscaExemplar = document.querySelector("[data-pesquisa]");
 const botaoDePesquisa = document.querySelector("[data-botao-pesquisa]");
 
 
-async function carregarLivros() {
+async function carregarExemplars() {
     try {
-      const conexao = await fetch('http://localhost:3000/livros');
-      const livros = await conexao.json();
-      console.log(livros)
-      allBooks = livros;
+      const conexao = await fetch('http://localhost:3000/exemplars');
+      const exemplars = await conexao.json();
+      console.log(exemplars)
+      allBooks = exemplars;
       updateList();
     } catch (error) {
-      console.error('Erro ao carregar livros:', error);
+      console.error('Erro ao carregar exemplars:', error);
     }
 }
 
-function adionaLivroTabela(book) {
-//   console.log("Adicionando livro à tabela:", book);
+function adionaExemplarTabela(book) {
+//   console.log("Adicionando exemplar à tabela:", book);
   const linha = document.createElement("tr");
   linha.setAttribute('data-lista','');
   linha.innerHTML = `
@@ -36,8 +37,8 @@ function adionaLivroTabela(book) {
     <td>${book.categoria}</td>
     <td>0</td>
     <td>${book.status}</td>
-    <td  data-idLivro="${book.idLivro}">
-      <button class="botao-exemplar" style="background: #198754;"><i id="icone-tabela"class="material-symbols-outlined">add</i></button>
+    <td  data-idExemplar="${book.idExemplar}">
+      <button class="botao-exemplar" style="background: rgb(121, 113, 113);"><i id="icone-tabela"class="material-symbols-outlined">edit_document</i></button>
       <button class="botao-editar" style="background: rgb(121, 113, 113);"><i id="icone-tabela"class="material-symbols-outlined">edit_document</i></button>
       <button class="botao-remover" style="background: rgb(168, 7, 7);"><i id="icone-tabela" class="material-symbols-outlined">delete</i></button>
       </td>
@@ -80,7 +81,7 @@ async function updateList() {
   tblContent.innerHTML = '';
 
   allBooks.forEach(book => {
-    const bookLinha = adionaLivroTabela(book);
+    const bookLinha = adionaExemplarTabela(book);
     tblContent.appendChild(bookLinha);
   });
 }
@@ -89,21 +90,21 @@ async function buscaLivAutor(event) {
   event.preventDefault();
   tblContent.innerHTML = '';
 
-  const buscaLivroAutor = document.querySelector("[data-pesquisa]").value.toLowerCase();
+  const buscaExemplarAutor = document.querySelector("[data-pesquisa]").value.toLowerCase();
 
   const filteredBooks = allBooks.filter(book =>
-    book.titulo.toLowerCase().includes(buscaLivroAutor) ||
-    book.autor.toLowerCase().includes(buscaLivroAutor)
+    book.titulo.toLowerCase().includes(buscaExemplarAutor) ||
+    book.autor.toLowerCase().includes(buscaExemplarAutor)
   );
   filteredBooks.forEach(book => {
-    const bookLinha = adionaLivroTabela(book);
+    const bookLinha = adionaExemplarTabela(book);
     tblContent.appendChild(bookLinha);
   });
 }
 
 function handleButtonClick(event) {
-    const id = event.target.parentNode.dataset.idlivro;
-    //const idLivro = allBooks.find(livro => livro.idLivro === parseInt(idLivroClicado));
+    const id = event.target.parentNode.dataset.idexemplar;
+    //const idExemplar = allBooks.find(exemplar => exemplar.idExemplar === parseInt(idExemplarClicado));
  
     console.log(id)
     if (event.target.classList.contains("btnSinopsys")) {
@@ -130,48 +131,29 @@ function closeModalWindow(event) {
 }
 
 function success() {
-  // const Toast = Swal.mixin({
-  //   toast: true,
-  //   position: "top-end",
-  //   showConfirmButton: false,
-  //   timer: 5000,
-  //   timerProgressBar: true,
-  //   didOpen: (toast) => {
-  //     toast.onmouseenter = Swal.stopTimer;
-  //     toast.onmouseleave = Swal.resumeTimer;
-  //   }
-  // });
-  // Toast.fire({
-  //   icon: "success",
-  //   title: "Signed in successfully"
-  // });
   const Toast = Swal.mixin({
     toast: true,
-    position: 'top-end',
-    iconColor: 'white',
-    customClass: {
-      popup: 'colored-toast',
-    },
+    position: "top-end",
     showConfirmButton: false,
-    timer: 1500,
+    timer: 5000,
     timerProgressBar: true,
-  })
-  
-  ;(async () => {
-    await Toast.fire({
-      icon: 'success',
-      title: 'Sucesso',
-    })
-    
-  })()
+    didOpen: (toast) => {
+      toast.onmouseenter = Swal.stopTimer;
+      toast.onmouseleave = Swal.resumeTimer;
+    }
+  });
+  Toast.fire({
+    icon: "success",
+    title: "Signed in successfully"
+  });
 }
 
 
 function openAddModal() {
-  // Limpar os campos do modal para adicionar um novo livro
+  // Limpar os campos do modal para adicionar um novo exemplar
   clearFields();
   
-  // Exibir o modal para adicionar um novo livro
+  // Exibir o modal para adicionar um novo exemplar
   modal.style.display = "block";
   btnCloseModal.addEventListener("click", closeModal);
   window.addEventListener("click", closeModalWindow);
@@ -182,16 +164,16 @@ function openAddModal() {
 
 
   
-  async function adicionarLivro(event) {
+  async function adicionarExemplar(event) {
     event.preventDefault();
   
-    const form = document.getElementById('formLivro');
+    const form = document.getElementById('formExemplar');
     const titulo = form.elements.titulo.value;
     const autor = form.elements.autor.value;
     const categoria = form.elements.categoria.value;
   
     try {
-      await fetch('http://localhost:3000/livros', {
+      await fetch('http://localhost:3000/exemplars', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -200,9 +182,9 @@ function openAddModal() {
       });
   
       form.reset();
-      carregarLivros();
+      carregarExemplars();
     } catch (error) {
-      console.error('Erro ao adicionar livro:', error);
+      console.error('Erro ao adicionar exemplar:', error);
     }
   }
 
@@ -270,7 +252,7 @@ function openAddModal() {
     
       // allBooks.push(newBook);
       try {
-        await fetch('http://localhost:3000/livros', {
+        await fetch('http://localhost:3000/exemplars', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -278,25 +260,25 @@ function openAddModal() {
           body: JSON.stringify(newBook),
         });
     
-        carregarLivros();
+        carregarExemplars();
       } catch (error) {
-        console.error('Erro ao adicionar livro:', error);
+        console.error('Erro ao adicionar exemplar:', error);
       }
     clearFields();
   }
   
-  async function removerLivro(id) {
+  async function removerExemplar(id) {
     console.log(id)
     try {
-      const response = await fetch(`http://localhost:3000/livros/${encodeURIComponent(id)}`, {
+      const response = await fetch(`http://localhost:3000/exemplars/${encodeURIComponent(id)}`, {
         method: 'DELETE',
       });
   
       if (response.ok) {
-        carregarLivros();
-      } else { console.error('Erro ao remover livro:', response.statusText); }
+        carregarExemplars();
+      } else { console.error('Erro ao remover exemplar:', response.statusText); }
     } catch (error) {
-      console.error('Erro ao remover livro:', error);
+      console.error('Erro ao remover exemplar:', error);
     }
   }
 
@@ -304,7 +286,7 @@ function openAddModal() {
   function removeBook(id) {
     console.log(id)
     Swal.fire({
-      title: "Deseja deletar este livro?",
+      title: "Deseja deletar este exemplar?",
       text: "Todos os exemplares associados a ele serão deletados!",
       icon: "warning",
       showCancelButton: true,
@@ -314,11 +296,11 @@ function openAddModal() {
   }).then((result) => {
       // Se o usuário confirmar, execute a lógica de exclusão
       if (result.isConfirmed) {
-        removerLivro(id)
+        removerExemplar(id)
         // updateList();
         Swal.fire({
         title: "Deletado!",
-        text: "O livro foi removido do acervo.",
+        text: "O exemplar foi removido do acervo.",
         icon: "success"
         }); 
     }});
@@ -335,7 +317,7 @@ function openAddModal() {
 
 function openEditModal(id) {
   console.log('ou')
-  const book = allBooks.find(book => book.idLivro == id);
+  const book = allBooks.find(book => book.idExemplar == id);
   console.log(book)
   if (book) {
     
@@ -399,7 +381,7 @@ function openEditModal(id) {
 //   // const listOfAllBooks = document.querySelector("#listOfAllBooks")
 //   const container = document.querySelector("#listOfAllBooks") // Substitua 'booksContainer' pelo ID real do seu contêiner
 
-//   // Itere sobre a lista de livros e crie um card para cada livro
+//   // Itere sobre a lista de exemplars e crie um card para cada exemplar
 //   bookList.forEach(function(book) {
 //     const bookCard = createCard(book.titulo, book.autor, book.categoria, book.subcategoria, book.ISBN, book.URLimage);
 //     container.appendChild(bookCard);
@@ -434,20 +416,19 @@ document.addEventListener("DOMContentLoaded", function () {
     //adicionaAutores();
   });
 botaoDePesquisa.addEventListener("click", event => buscaLivAutor(event))
-inputBuscaLivro.addEventListener("keyup", function (event) {
+inputBuscaExemplar.addEventListener("keyup", function (event) {
   if (event.key === 'Enter') {
     buscaLivAutor(event);
   }
 });
   
 
-carregarLivros();
-// Carregar lista de livros ao iniciar a página
+carregarExemplars();
+// Carregar lista de exemplars ao iniciar a página
 //loadBookList();
 // document.addEventListener("DOMContentLoaded", function () {
 //   displayBooksFromLocalStorageCard(); // Chame a função que exibe os cards
 // });
-
 
 
 

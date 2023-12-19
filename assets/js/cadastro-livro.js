@@ -264,7 +264,7 @@ $( document ).ready(function() {
 
 // Event Listeners
 botao_novo.addEventListener("click", openAddModal);
-btnRegister.addEventListener("click", registerBook);
+
 btnRegister.addEventListener("click", function (event) { event.preventDefault();})
 tblContent.addEventListener("click", handleButtonClick);
 document.getElementById('ativo').checked = true;

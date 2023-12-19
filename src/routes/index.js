@@ -2,6 +2,7 @@ import livros from "./livros-route.js"
 import categorias from "./categorias-route.js"
 import autores from "./autores-route.js"
 import bodyParser from "body-parser";
+import Swal from 'sweetalert2';
 
 //controle das rotas
 

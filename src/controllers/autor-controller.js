@@ -1,7 +1,7 @@
 import AutorModel from "../models/autor-model.js";
 
 const autorModel = new AutorModel();
-
+//conexao feita aqui
 class AutorController {
   static async listarAutores (req,res) {
 
